@@ -1,17 +1,17 @@
 package Classes;
 
 public class Item {
-    String name;
-    double price;
-    int quantity;
-    String type;
-    double tax;
+    private String name;
+    private double price;
+    private int quantity;
+    private String type;
+    private double tax;
 
     Item() {
-        this.name = "";
-        this.price = 0.0;
-        this.quantity = 0;
-        this.type = "";
+        this.name = Constants.EMPTY;
+        this.price = Constants.ZERO;
+        this.quantity = Constants.ZERO_INT;
+        this.type = Constants.EMPTY;
     }
 
     Item(String name, double price, int quantity, String type) {
@@ -23,5 +23,25 @@ public class Item {
 
     public void setTax(double tax) {
         this.tax = tax;
+    }
+
+    public String returnName() {
+        return name;
+    }
+
+    public double returnPrice() {
+        return price;
+    }
+
+    public int returnQuantity() {
+        return quantity;
+    }
+
+    public String returnType() {
+        return type;
+    }
+
+    public double returnTax() {
+        return tax;
     }
 }
