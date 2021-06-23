@@ -4,21 +4,22 @@ public class Item {
     private String name;
     private double price;
     private int quantity;
-    private String type;
+    private ObjectType type;
     private double tax;
 
     Item() {
         this.name = Constants.EMPTY;
         this.price = Constants.ZERO;
         this.quantity = Constants.ZERO_INT;
-        this.type = Constants.EMPTY;
+        this.type = Constants.RAW;
     }
 
-    Item(String name, double price, int quantity, String type) {
+    Item(String name, double price, int quantity, ObjectType type, double tax) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.type = type;
+        this.tax = tax;
     }
 
     public void setTax(double tax) {
@@ -38,7 +39,7 @@ public class Item {
     }
 
     public String returnType() {
-        return type;
+        return type.toString();
     }
 
     public double returnTax() {

@@ -15,11 +15,11 @@ public class Constants {
 
     public static final String ENTER_ANOTHER_ITEM = "Do you want to add another item(y/n)?";
 
-    public static final String RAW = "raw";
+    public static final ObjectType RAW = ObjectType.RAW;
 
-    public static final String MANUFACTURED = "manufactured";
+    public static final ObjectType MANUFACTURED = ObjectType.MANUFACTURED;
 
-    public static final String IMPORTED = "imported";
+    public static final ObjectType IMPORTED = ObjectType.IMPORTED;
 
     public static final String FINAL_TAX = "FINAL TAX: ";
 

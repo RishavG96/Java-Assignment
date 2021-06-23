@@ -1,3 +1,5 @@
+Classes/ObjectType.java
+ Classes.ObjectType
 Classes/Constants.java
  Classes.Constants
 Classes/Main.java
@@ -6,3 +8,4 @@ Classes/Item.java
  Classes.Item
 Classes/CalculateTax.java
  Classes.CalculateTax
+ Classes.CalculateTax$1

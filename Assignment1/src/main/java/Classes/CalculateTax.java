@@ -6,11 +6,11 @@ import java.lang.*;
 public class CalculateTax {
 
     private static double totalTax = Constants.ZERO;
+    ArrayList<Item> items = new ArrayList<Item>();
 
-    public void takeInputs(Item[] items) {
+    public void takeInputs() {
         boolean enterMoreItems = true;
         Scanner sc = new Scanner(System.in);
-        int totalItemCount = Constants.ZERO_INT;
         do {
             System.out.println(Constants.ENTER_NAME);
             String name = sc.nextLine();
@@ -24,15 +24,12 @@ public class CalculateTax {
             do {
                 System.out.println(Constants.ENTER_TYPE);
                 type = sc.nextLine();
-                if ((!type.isEmpty()) && (typeCheckFunc(type))) {
-                    typeDidNotEnter = false;
-                } else {
-                    typeDidNotEnter = true;
-                }
+                typeDidNotEnter = checkIfTypeIsValid(type);
             } while(typeDidNotEnter);
 
-            items[totalItemCount] = new Item(name, price, quantity, type);
-            calculateTax(price, quantity, type, items[totalItemCount++]);
+            ObjectType typeValue = ObjectType.valueOf(type.toUpperCase());
+            double calculatedTax = calculateTax(price, quantity, typeValue);
+            items.add(new Item(name, price, quantity, typeValue, calculatedTax));
 
             System.out.println(Constants.ENTER_ANOTHER_ITEM);
             String response = sc.nextLine();
@@ -42,25 +39,34 @@ public class CalculateTax {
         } while(enterMoreItems);
     }
 
-    private boolean typeCheckFunc(String type) {
-        if (type.equalsIgnoreCase(Constants.RAW) || type.equalsIgnoreCase(Constants.MANUFACTURED) || type.equalsIgnoreCase(Constants.IMPORTED)) {
+    private boolean checkIfTypeIsValid(String type) {
+        ObjectType typeValue = ObjectType.valueOf(type.toUpperCase());
+        if ((!type.isEmpty()) && (typeCheckFunc(typeValue))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean typeCheckFunc(ObjectType type) {
+        if (type == Constants.RAW || type == Constants.MANUFACTURED || type == Constants.IMPORTED) {
             return true;
         }
         return false;
     }
 
-    private void calculateTax(double price, int quantity, String type, Item item) {
+    private double calculateTax(double price, int quantity, ObjectType type) {
         double itemCost = price * quantity;
         switch (type) {
-            case Constants.RAW:
+            case RAW:
                 double tax = (itemCost) * Constants.PAISA125;
                 totalTax += tax;
-                item.setTax(tax);
-            case Constants.MANUFACTURED:
+                return tax;
+            case MANUFACTURED:
                 tax = ((itemCost) * Constants.PAISA125) + (Constants.PAISA2 * (itemCost + ((itemCost) * Constants.PAISA125)));
                 totalTax += tax;
-                item.setTax(tax);
-            case Constants.IMPORTED:
+                return tax;
+            case IMPORTED:
                 double surcharge = Constants.ZERO;
                 tax = Constants.PAISA1 * itemCost;
                 if (tax <= Constants.HUNDRED) {
@@ -71,13 +77,14 @@ public class CalculateTax {
                     surcharge = Constants.PAISA5 * tax;
                 }
                 totalTax += (tax) + surcharge;
-                item.setTax((tax) + surcharge);
+                return ((tax) + surcharge);
             default:
                 break;
         }
+        return Constants.ZERO;
     }
 
-    public void printData(Item[] items) {
+    public void printData() {
         for (Item item: items) {
             if (item == null || item.returnType().isEmpty()) {
                 break;

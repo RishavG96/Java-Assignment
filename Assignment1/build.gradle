@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 group 'org.example'
@@ -8,6 +9,35 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'checkstyle'
+
+tasks.withType(Checkstyle) {
+    showViolations true
+}
+checkstyle {
+    toolVersion '8.11'
+    sourceSets = [project.sourceSets.main]
+}
+// Fails gradle build when checkstyle violation occurs
+//tasks.withType(Checkstyle).each { checkstyleTask ->
+//    checkstyleTask.doLast {
+//        reports.all { report ->
+//            def outputFile = report.destination
+//            if (outputFile.exists() && outputFile.text.contains("<error ")) {
+//                throw new GradleException("There were checkstyle warnings! For more info check $outputFile")
+//            }
+//        }
+//    }
+//}
+
+//apply plugin: 'pmd'
+//
+//pmd {
+//    toolVersion = '6.20.0'
+//    ruleSets = []
+//    ruleSetFiles = files("$rootDir/config/pmd/ruleset.xml")
+//}
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
