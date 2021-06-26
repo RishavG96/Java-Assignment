@@ -31,13 +31,13 @@ checkstyle {
 //    }
 //}
 
-//apply plugin: 'pmd'
-//
-//pmd {
-//    toolVersion = '6.20.0'
-//    ruleSets = []
-//    ruleSetFiles = files("$rootDir/config/pmd/ruleset.xml")
-//}
+apply plugin: 'pmd'
+
+pmd {
+    toolVersion = '6.20.0'
+    ruleSets = []
+    ruleSetFiles = files("$rootDir/config/pmd/ruleset.xml")
+}
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
