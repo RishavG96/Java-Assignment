@@ -19,17 +19,6 @@ checkstyle {
     toolVersion '8.11'
     sourceSets = [project.sourceSets.main]
 }
-// Fails gradle build when checkstyle violation occurs
-//tasks.withType(Checkstyle).each { checkstyleTask ->
-//    checkstyleTask.doLast {
-//        reports.all { report ->
-//            def outputFile = report.destination
-//            if (outputFile.exists() && outputFile.text.contains("<error ")) {
-//                throw new GradleException("There were checkstyle warnings! For more info check $outputFile")
-//            }
-//        }
-//    }
-//}
 
 apply plugin: 'pmd'
 
@@ -42,8 +31,6 @@ pmd {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 }
 
 test {
