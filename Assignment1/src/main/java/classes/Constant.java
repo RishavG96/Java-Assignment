@@ -39,27 +39,7 @@ public class Constant {
   * Add another String.
   */
   public static final String ENTER_ANOTHER_ITEM = "Do you want to add another item(y/n)?";
-
-  /**
-  * Raw String.
-  */
-  public static final ObjectType RAW = ObjectType.RAW;
-
-  /**
-  * Manufactured String.
-  */
-  public static final ObjectType MANUFACTURED = ObjectType.MANUFACTURED;
-
-  /**
-  * Imported String.
-  */
-  public static final ObjectType IMPORTED = ObjectType.IMPORTED;
-
-  /**
-  * Tax String.
-  */
-  public static final String FINAL_TAX = "FINAL TAX: ";
-
+  
   /**
   * Paisa 125 String.
   */
