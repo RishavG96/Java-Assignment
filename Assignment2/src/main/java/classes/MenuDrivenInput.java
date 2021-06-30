@@ -15,6 +15,8 @@ import java.util.Scanner;
  */
 public class MenuDrivenInput {
 
+  private final String DATA = "Name: %s Age: %s Roll no.: %s Subjects Entered: %s";
+  
   /**
    * Arraylist of users.
    */
@@ -148,10 +150,7 @@ public class MenuDrivenInput {
   private void displayUserDetails() {
     System.out.println("______________Displaying Data______________");
     for (final UserDetails user: USERS) {
-      System.out.println("Name: " + user.getName()
-                           + " Age: " + user.getAge()
-                           + " Roll no.: " + user.getRollNo()
-                           + " Subjects Entered: " + user.getCourses());
+      System.out.println(String.format(DATA, user.getName(), user.getAge(), user.getRollNo(), user.getCourses()));
     }
     System.out.println("___________________________________________");
   }
@@ -166,6 +165,7 @@ public class MenuDrivenInput {
       if (user.getRollNo() == rollNo) {
         USERS.remove(counterForIndex);
         userDeleted = Boolean.TRUE;
+        System.out.println("The user is deleted.");
         break;
       }
       counterForIndex++;
