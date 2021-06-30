@@ -10,14 +10,14 @@ import java.util.Scanner;
 public class CalculateTax {
 
   /**
-  * Takes total Tax.
-  */
-  private static double totalTax = Constant.ZERO;
-
+   * String formatter.
+   */
+  private final String DATA = "Name: %s || Price: %s || Quantity: %s || Type: %s || Tax: %s";
+  
   /**
   * Takes ArrayList.
   */
-  private final ArrayList<ItemDetails> items = new ArrayList<ItemDetails>();
+  private final ArrayList<ItemDetails> ITEMS = new ArrayList<ItemDetails>();
 
   /**
   * Takes input.
@@ -42,7 +42,7 @@ public class CalculateTax {
       } while (typeDidNotEnter);
       final ObjectType typeValue = ObjectType.valueOf(type.toUpperCase());
       final double calculatedTax = calculateTax(price, quantity, typeValue);
-      items.add(new ItemDetails(name, price, quantity, typeValue, calculatedTax));
+      ITEMS.add(new ItemDetails(name, price, quantity, typeValue, calculatedTax));
     
       System.out.println(Constant.ENTER_ANOTHER_ITEM);
       final String response = scanner.nextLine();
@@ -64,7 +64,7 @@ public class CalculateTax {
 
   private boolean typeCheckFunc(final ObjectType type) {
     boolean isValidType = false;
-    if (type == Constant.RAW || type == Constant.MANUFACTURED || type == Constant.IMPORTED) {
+    if (type == ObjectType.RAW || type == ObjectType.MANUFACTURED || type == ObjectType.IMPORTED) {
       isValidType = true;
     }
     return isValidType;
@@ -73,30 +73,27 @@ public class CalculateTax {
   private double calculateTax(final double price, final int quantity, final ObjectType type) {
     final double itemCost = price * quantity;
     double taxAmt = Constant.ZERO;
+    double basicTax = Constant.ZERO;
     switch (type) {
       case RAW:
-        double tax = (itemCost) * Constant.PAISA125;
-        totalTax += tax;
-        taxAmt = tax;
+        taxAmt = (itemCost) * Constant.PAISA125;
         break;
       case MANUFACTURED:
         final double taxCharge = (itemCost) * Constant.PAISA125;
-        tax = taxCharge + (Constant.PAISA2 * (itemCost + ((itemCost) * Constant.PAISA125)));
-        totalTax += tax;
-        taxAmt = tax;
+        taxAmt = taxCharge + (Constant.PAISA2 * (itemCost + ((itemCost) * Constant.PAISA125)));
         break;
       case IMPORTED:
         double surcharge = Constant.ZERO;
-        tax = Constant.PAISA1 * itemCost;
-        if (tax <= Constant.HUNDRED) {
+        basicTax = Constant.PAISA1 * itemCost;
+        if (basicTax <= Constant.HUNDRED) {
           surcharge = Constant.FIVE;
-        } else if (tax > Constant.HUNDRED && tax <= Constant.TWO_HUNDRED) {
+        } else if (basicTax > Constant.HUNDRED && basicTax <= Constant.TWO_HUNDRED) {
           surcharge = Constant.TEN;
         } else {
-          surcharge = Constant.PAISA5 * tax;
+          surcharge = Constant.PAISA5 * basicTax;
         }
-        totalTax += tax + surcharge;
-        taxAmt = tax + surcharge;
+        
+        taxAmt = basicTax + surcharge;
         break;
       default:
         break;
@@ -108,16 +105,8 @@ public class CalculateTax {
   * Prints Data.
   */
   public void printData() {
-    for (final ItemDetails item: items) {
-      if (item == null || item.returnType().isEmpty()) {
-        break;
-      }
-      
-      System.out.println("Name: " + item.returnName() + " || Price: " + item.returnPrice()
-                         + " || Quantity: " + item.returnQuantity()
-                           + " || Type: " + item.returnType() + " || Tax: " + item.returnTax());
-      
+    for (final ItemDetails item: ITEMS) {
+      System.out.println(String.format(DATA, item.getName(), item.getPrice(), item.getQuantity(), item.getType(), item.getTax()));
     }
-    System.out.println(Constant.FINAL_TAX + totalTax);
   }
 }

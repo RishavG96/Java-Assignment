@@ -1,5 +1,7 @@
 package classes;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by rishav.
  */
@@ -31,16 +33,6 @@ public class ItemDetails {
   private double tax;
 
   /**
-  * Default constructor.
-  */
-  private ItemDetails() {
-    this.name = Constant.EMPTY;
-    this.price = Constant.ZERO;
-    this.quantity = Constant.ZERO_INT;
-    this.type = Constant.RAW;
-  }
-
-  /**
   *  constructor.
   */
   public ItemDetails(final String name, final double price, final int quantity,
@@ -60,37 +52,37 @@ public class ItemDetails {
   }
 
   /**
-  *  return name.
-  */
-  public String returnName() {
+   *  return name.
+   */
+  public String getName() {
     return name;
   }
-
+  
   /**
-  *  return Price.
-  */
-  public double returnPrice() {
+   *  return Price.
+   */
+  public double getPrice() {
     return price;
   }
-
+  
   /**
-  *  return Quantity.
-  */
-  public int returnQuantity() {
+   *  return Quantity.
+   */
+  public int getQuantity() {
     return quantity;
   }
-
+  
   /**
-  *  return Type.
-  */
-  public String returnType() {
+   *  return Type.
+   */
+  public String getType() {
     return type.toString();
   }
   
   /**
-  *  return Tax.
-  */
-  public double returnTax() {
+   *  return Tax.
+   */
+  public double getTax() {
     return tax;
   }
 }
